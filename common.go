@@ -1,6 +1,7 @@
 package float16
 
 import (
+	"math"
 	"strconv"
 )
 
@@ -55,71 +56,73 @@ func FromFloat64(val float64) (x Float16, ok bool) {
 		val *= -1
 	}
 
+	vb := math.Float64bits(val)
+
 	switch {
-	case val >= 1e16:
+	case vb >= 0x4341c37937e08000 /* 1e16 */ :
 		return 0, false
 
-	case val >= 1e15:
+	case vb >= 0x430c6bf526340000 /* 1e15 */ :
 		return x | round(val*1e-13)<<6 | 15, true
-	case val >= 1e14:
+	case vb >= 0x42d6bcc41e900000 /* 1e14 */ :
 		return x | round(val*1e-12)<<6 | 14, true
-	case val >= 1e13:
+	case vb >= 0x42a2309ce5400000 /* 1e13 */ :
 		return x | round(val*1e-11)<<6 | 13, true
-	case val >= 1e12:
+	case vb >= 0x426d1a94a2000000 /* 1e12 */ :
 		return x | round(val*1e-10)<<6 | 12, true
-	case val >= 1e11:
+	case vb >= 0x42374876e8000000 /* 1e11 */ :
 		return x | round(val*1e-9)<<6 | 11, true
-	case val >= 1e10:
+	case vb >= 0x4202a05f20000000 /* 1e10 */ :
 		return x | round(val*1e-8)<<6 | 10, true
-	case val >= 1e9:
+	case vb >= 0x41cdcd6500000000 /* 1e9 */ :
 		return x | round(val*1e-7)<<6 | 9, true
-	case val >= 1e8:
+	case vb >= 0x4197d78400000000 /* 1e8 */ :
 		return x | round(val*1e-6)<<6 | 8, true
-	case val >= 1e7:
+	case vb >= 0x416312d000000000 /* 1e7 */ :
 		return x | round(val*1e-5)<<6 | 7, true
-	case val >= 1e6:
+	case vb >= 0x412e848000000000 /* 1e6 */ :
 		return x | round(val*1e-4)<<6 | 6, true
-	case val >= 1e5:
+	case vb >= 0x40f86a0000000000 /* 1e5 */ :
 		return x | round(val*1e-3)<<6 | 5, true
-	case val >= 1e4:
+	case vb >= 0x40c3880000000000 /* 1e4 */ :
 		return x | round(val*1e-2)<<6 | 4, true
-	case val >= 1e3:
+	case vb >= 0x408f400000000000 /* 1e3 */ :
 		return x | round(val*1e-1)<<6 | 3, true
-	case val >= 1e2:
+	case vb >= 0x4059000000000000 /* 1e2 */ :
 		return x | round(val*1e0)<<6 | 2, true
-	case val >= 1e1:
+	case vb >= 0x4024000000000000 /* 1e1 */ :
 		return x | round(val*1e1)<<6 | 1, true
-	case val >= 1e0:
+	case vb >= 0x3ff0000000000000 /* 1e0 */ :
 		return x | round(val*1e2)<<6 | 0, true
-	case val >= 1e-1:
+	case vb >= 0x3fb999999999999a /* 1e-1 */ :
 		return x | round(val*1e3)<<6 | 17, true
-	case val >= 1e-2:
+	case vb >= 0x3f847ae147ae147b /* 1e-2 */ :
 		return x | round(val*1e4)<<6 | 18, true
-	case val >= 1e-3:
+	case vb >= 0x3f50624dd2f1a9fc /* 1e-3 */ :
 		return x | round(val*1e5)<<6 | 19, true
-	case val >= 1e-4:
+	case vb >= 0x3f1a36e2eb1c432d /* 1e-4 */ :
 		return x | round(val*1e6)<<6 | 20, true
-	case val >= 1e-5:
+	case vb >= 0x3ee4f8b588e368f1 /* 1e-5 */ :
 		return x | round(val*1e7)<<6 | 21, true
-	case val >= 1e-6:
+	case vb >= 0x3eb0c6f7a0b5ed8d /* 1e-6 */ :
 		return x | round(val*1e8)<<6 | 22, true
-	case val >= 1e-7:
+	case vb >= 0x3e7ad7f29abcaf48 /* 1e-7 */ :
 		return x | round(val*1e9)<<6 | 23, true
-	case val >= 1e-8:
+	case vb >= 0x3e45798ee2308c3a /* 1e-8 */ :
 		return x | round(val*1e10)<<6 | 24, true
-	case val >= 1e-9:
+	case vb >= 0x3e112e0be826d695 /* 1e-9 */ :
 		return x | round(val*1e11)<<6 | 25, true
-	case val >= 1e-10:
+	case vb >= 0x3ddb7cdfd9d7bdbb /* 1e-10 */ :
 		return x | round(val*1e12)<<6 | 26, true
-	case val >= 1e-11:
+	case vb >= 0x3da5fd7fe1796495 /* 1e-11 */ :
 		return x | round(val*1e13)<<6 | 27, true
-	case val >= 1e-12:
+	case vb >= 0x3d719799812dea11 /* 1e-12 */ :
 		return x | round(val*1e14)<<6 | 28, true
-	case val >= 1e-13:
+	case vb >= 0x3d3c25c268497682 /* 1e-13 */ :
 		return x | round(val*1e15)<<6 | 29, true
-	case val >= 1e-14:
+	case vb >= 0x3d06849b86a12b9b /* 1e-14 */ :
 		return x | round(val*1e16)<<6 | 30, true
-	case val >= 1e-15:
+	case vb >= 0x3cd203af9ee75616 /* 1e-15 */ :
 		return x | round(val*1e17)<<6 | 31, true
 
 	default:
