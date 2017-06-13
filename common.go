@@ -49,8 +49,7 @@ const (
 )
 
 func round64(val float64) Float16 {
-	out := Float16(val)
-	return out + Float16(2*(val-float64(out)))
+	return (Float16(val) + 5) / 10
 }
 
 func (f Float16) Float64() float64 {

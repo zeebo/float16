@@ -66,7 +66,7 @@ func main() {
 		}
 		cases = append(cases, Case{
 			Value: math.Pow(10, float64(i)),
-			Mul:   2 - i,
+			Mul:   2 - i + 1,
 			Or:    or,
 		})
 	}
